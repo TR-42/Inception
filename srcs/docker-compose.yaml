@@ -28,14 +28,14 @@ services:
   #   volumes:
   #     - wp_data:/home/vsftpd
 
-  # mariadb:
-  #   build:
-  #     context: ./requirements/mariadb
-  #     dockerfile: Dockerfile
-  #   networks:
-  #     - db_network
-  #   volumes:
-  #     - mariadb_data:/var/lib/mysql
+  mariadb:
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    networks:
+      - db_network
+    volumes:
+      - mariadb_data:/var/lib/mysql
 
   proxy:
     build:
