@@ -1,0 +1,84 @@
+services:
+  # dns:
+  #   build:
+  #     context: ./requirements/dns
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "53:53/udp"
+  #   cap_add:
+  #     - NET_ADMIN
+  #   volumes:
+  #     - ./requirements/dnsmasq.conf:/etc/dnsmasq.conf
+
+  # dotnet:
+  #   build:
+  #     context: ./requirements/dotnet
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - dotnet_data:/app
+
+  # ftp:
+  #   build:
+  #     context: ./requirements/ftp
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "21:21"
+  #   volumes:
+  #     - wp_data:/home/vsftpd
+
+  # mariadb:
+  #   build:
+  #     context: ./requirements/mariadb
+  #     dockerfile: Dockerfile
+  #   networks:
+  #     - db_network
+  #   volumes:
+  #     - mariadb_data:/var/lib/mysql
+
+  proxy:
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./requirements/nginx/conf.d:/etc/nginx/conf.d
+      # - ./requirements/nginx/ssl:/etc/nginx/ssl
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - proxy_network
+    # depends_on:
+    #   - wordpress
+
+  # redis:
+  #   build:
+  #     context: ./requirements/redis
+  #     dockerfile: Dockerfile
+  #   networks:
+  #     - redis_network
+
+  # wordpress:
+  #   build:
+  #     context: ./requirements/wordpress
+  #     dockerfile: Dockerfile
+  #   networks:
+  #     - db_network
+  #     - proxy_network
+  #     - redis_network
+  #   volumes:
+  #     - wp_data:/var/www/html
+  #   depends_on:
+  #     - mariadb
+  #     - redis
+
+networks:
+  proxy_network:
+  db_network:
+  redis_network:
+
+volumes:
+  mariadb_data:
+  wp_data:
+  dotnet_data:
