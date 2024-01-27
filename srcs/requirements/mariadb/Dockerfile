@@ -15,7 +15,6 @@ VOLUME ["/var/lib/mysql"]
 
 COPY files/my.cnf /etc/my.cnf.d/
 
-USER mysql
 WORKDIR /var/lib/mysql
-RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
-CMD ["mariadbd", "--user=mysql", "--datadir=/var/lib/mysql"]
+COPY files/entrypoint.sh /entrypoint.sh
+CMD ["sh", "/entrypoint.sh", "mysql", "/var/lib/mysql"]
