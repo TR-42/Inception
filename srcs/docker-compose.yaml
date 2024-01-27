@@ -36,6 +36,7 @@ services:
 
   mariadb:
     container_name: mariadb
+    hostname: mariadb
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
@@ -49,15 +50,16 @@ services:
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
-    # volumes:
+    volumes:
+      - wp_data:/var/www/html:ro
     #   - ./requirements/nginx/ssl:/etc/nginx/ssl
     ports:
       - "80:80"
       - "443:443"
     networks:
       - proxy_network
-    # depends_on:
-    #   - wordpress
+    depends_on:
+      - wordpress
 
   # redis:
   #   container_name: redix
@@ -67,20 +69,21 @@ services:
   #   networks:
   #     - redis_network
 
-  # wordpress:
-  #   container_name: wordpress_php_fpm
-  #   build:
-  #     context: ./requirements/wordpress
-  #     dockerfile: Dockerfile
-  #   networks:
-  #     - db_network
-  #     - proxy_network
-  #     - redis_network
-  #   volumes:
-  #     - wp_data:/var/www/html
-  #   depends_on:
-  #     - mariadb
-  #     - redis
+  wordpress:
+    container_name: wordpress_php_fpm
+    hostname: wordpress-php-fpm
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    networks:
+      - db_network
+      - proxy_network
+      # - redis_network
+    volumes:
+      - wp_data:/root/wordpress
+    depends_on:
+      - mariadb
+      # - redis
 
 networks:
   proxy_network:
