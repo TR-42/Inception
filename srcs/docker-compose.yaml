@@ -45,6 +45,20 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
 
+  adminer:
+    container_name: adminer
+    hostname: adminer
+    build:
+      context: ./requirements/adminer
+      dockerfile: Dockerfile
+    networks:
+      - db_network
+      - proxy_network
+    volumes:
+      - adminer_data:/var/www/adminer
+    depends_on:
+      - mariadb
+
   proxy:
     container_name: nginx
     build:
@@ -52,6 +66,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - wp_data:/var/www/html:ro
+      - adminer_data:/var/www/adminer:ro
     #   - ./requirements/nginx/ssl:/etc/nginx/ssl
     ports:
       - "80:80"
@@ -60,6 +75,7 @@ services:
       - proxy_network
     depends_on:
       - wordpress
+      - adminer
 
   # redis:
   #   container_name: redix
@@ -92,5 +108,6 @@ networks:
 
 volumes:
   mariadb_data:
+  adminer_data:
   wp_data:
   dotnet_data:
