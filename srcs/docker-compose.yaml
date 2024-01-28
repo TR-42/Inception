@@ -80,7 +80,7 @@ services:
       - proxy_network
       # - redis_network
     volumes:
-      - wp_data:/root/wordpress
+      - wp_data:/var/www/html
     depends_on:
       - mariadb
       # - redis
