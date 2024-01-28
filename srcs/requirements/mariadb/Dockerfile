@@ -13,8 +13,9 @@ RUN apk add mariadb mariadb-client
 
 VOLUME ["/var/lib/mysql"]
 
-COPY files/my.cnf /etc/my.cnf.d/
+COPY files/mariadb-server.cnf /etc/my.cnf.d/
 
 WORKDIR /var/lib/mysql
+COPY files/init_sql/ /tmp/init_sql
 COPY files/entrypoint.sh /entrypoint.sh
 CMD ["sh", "/entrypoint.sh", "mysql", "/var/lib/mysql"]

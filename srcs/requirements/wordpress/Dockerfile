@@ -31,6 +31,6 @@ RUN wget https://wordpress.org/wordpress-${WP_VERSION}.tar.gz && \
 COPY ./files/php-fpm.d/www.conf /etc/${PHP_PACKAGE}/php-fpm.d/www.conf
 
 WORKDIR /var/www/html
-COPY files/wp-config.php ./wordpress/wp-config.php
+COPY files/wp-config.php ./wp-config.php
 
 CMD [ "php-fpm82", "-F", "-R" ]
