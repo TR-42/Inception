@@ -1,16 +1,14 @@
 services:
-  # dns:
-  #   TODO: 適切な名前に変更する
-  #   container_name: dns
-  #   build:
-  #     context: ./requirements/dns
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "53:53/udp"
-  #   cap_add:
-  #     - NET_ADMIN
-  #   volumes:
-  #     - ./requirements/dnsmasq.conf:/etc/dnsmasq.conf
+  dns:
+    container_name: dns
+    hostname: dns
+    build:
+      context: ./requirements/dns
+      dockerfile: Dockerfile
+    ports:
+      - "53:53/udp"
+    cap_add:
+      - NET_ADMIN
 
   # dotnet:
   #   TODO: 適切な名前に変更する
