@@ -80,13 +80,13 @@ services:
       - wordpress
       - adminer
 
-  # redis:
-  #   container_name: redix
-  #   build:
-  #     context: ./requirements/redis
-  #     dockerfile: Dockerfile
-  #   networks:
-  #     - redis_network
+  redis:
+    container_name: redix
+    build:
+      context: ./requirements/redis
+      dockerfile: Dockerfile
+    networks:
+      - redis_network
 
   wordpress:
     container_name: wordpress_php_fpm
@@ -97,12 +97,12 @@ services:
     networks:
       - db_network
       - proxy_network
-      # - redis_network
+      - redis_network
     volumes:
       - wp_data:/var/www/html
     depends_on:
       - mariadb
-      # - redis
+      - redis
 
 networks:
   proxy_network:
