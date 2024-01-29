@@ -18,4 +18,6 @@ if [ ! -d "$DATADIR/mysql" ]; then
     INIT_SQL_ARG="--init-file=/tmp/init.sql"
 fi
 
+trap "mariadb-admin shutdown" TERM
+
 mariadbd --user=$DB_USER --datadir=$DATADIR $INIT_SQL_ARG
