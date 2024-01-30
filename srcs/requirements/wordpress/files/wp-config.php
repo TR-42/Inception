@@ -20,13 +20,13 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'wp' );
+define( 'DB_NAME', '__MYSQL_DATABASE__' );
 
 /** Database username */
-define( 'DB_USER', 'wp' );
+define( 'DB_USER', '__MYSQL_USER__' );
 
 /** Database password */
-define( 'DB_PASSWORD', 'wp' );
+define( 'DB_PASSWORD', '__MYSQL_PASSWORD__' );
 
 /** Database hostname */
 define( 'DB_HOST', 'mariadb' );
@@ -50,14 +50,14 @@ define( 'WP_REDIS_HOST', 'redis' );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         ';}G@x6>EdL]j,E}5*>Un=>D$KC/u$60*~lnu(w9NCIHp^4V6GkdzO)?oK%]&6;i<' );
-define( 'SECURE_AUTH_KEY',  't69*xo5E|9nBqo)Xz7J K!)`Gxvx<@,Q&{c &k+7mr(*{6tsQ6m5aZkR-l`NV8Lm' );
-define( 'LOGGED_IN_KEY',    '$WMT]0FxWe|^`f$dYI~|T[othiOB8f(o?uO2Y|TH7x/fI0wVdN1V-yv;.Yd|z9y.' );
-define( 'NONCE_KEY',        'f;8wSeS,Qxx9Iq_Nqb7f>Wi%HD($Zc4An@k|b/h@g6vNC<}*B.&p[fPLf=(U~n1~' );
-define( 'AUTH_SALT',        '6R>D.~(KJ8`RUF7&yf-EQ5^$G#=J^in9B~I7}tvjz#ee=5irW<bOd6htvaNqHp3W' );
-define( 'SECURE_AUTH_SALT', 'kVu@?^auD I>?-19)?yjY?0{SHYXi!VcB$>iF|fQEqe~psb:DjfJfzpLE?L~rvXM' );
-define( 'LOGGED_IN_SALT',   'Ea~DeUxI><F(NI(&F`RlXf5M|XQ]x1_12i=#=N^z5pX5$c^vr;1!f))L3qw.2v<,' );
-define( 'NONCE_SALT',       '%6l0aB{uzJAY,TI~A/6|y3}m16%%t3%s9l`oD@^FpDi_NNfm/&g`AQ}G<0?sE(H}' );
+define( 'AUTH_KEY',         $_ENV['WP_AUTH_KEY'] );
+define( 'SECURE_AUTH_KEY',  $_ENV['WP_SECURE_AUTH_KEY'] );
+define( 'LOGGED_IN_KEY',    $_ENV['WP_LOGGED_IN_KEY'] );
+define( 'NONCE_KEY',        $_ENV['WP_NONCE_KEY'] );
+define( 'AUTH_SALT',        $_ENV['WP_AUTH_SALT'] );
+define( 'SECURE_AUTH_SALT', $_ENV['WP_SECURE_AUTH_SALT'] );
+define( 'LOGGED_IN_SALT',   $_ENV['WP_LOGGED_IN_SALT'] );
+define( 'NONCE_SALT',       $_ENV['WP_NONCE_SALT'] );
 
 /**#@-*/
 

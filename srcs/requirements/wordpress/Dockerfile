@@ -1,8 +1,21 @@
 FROM alpine:3.19.1
 
+ARG PHP_VERSION="82"
 ARG WP_VERSION="6.4.2"
 ARG REDIS_CACHE_PLUGIN_VERSION="2.5.0"
-ARG PHP_PACKAGE="php82"
+
+ARG MYSQL_USER=""
+ARG MYSQL_PASSWORD=""
+ARG MYSQL_DATABASE=""
+
+ARG PHP_PACKAGE="php${PHP_VERSION}"
+
+ARG PLACEHOLDER_MYSQL_USER="__MYSQL_USER__"
+ARG PLACEHOLDER_MYSQL_PASSWORD="__MYSQL_PASSWORD__"
+ARG PLACEHOLDER_MYSQL_DATABASE="__MYSQL_DATABASE__"
+
+ENV PHP_FPM_EXECUTABLE="php-fpm${PHP_VERSION}"
+
 RUN apk update && apk add ${PHP_PACKAGE} ${PHP_PACKAGE}-fpm wget
 
 # install php extensions
@@ -48,7 +61,12 @@ COPY ./files/php-fpm.d/www.conf /etc/${PHP_PACKAGE}/php-fpm.d/www.conf
 
 WORKDIR /var/www/html
 COPY files/wp-config.php ./wp-config.php
+RUN sed -i\
+    -e "s/${PLACEHOLDER_MYSQL_USER}/${MYSQL_USER}/g"\
+    -e "s/${PLACEHOLDER_MYSQL_PASSWORD}/${MYSQL_PASSWORD}/g"\
+    -e "s/${PLACEHOLDER_MYSQL_DATABASE}/${MYSQL_DATABASE}/g"\
+  ./wp-config.php
 
 RUN chown -R nobody:nogroup /var/www/html
 
-CMD [ "php-fpm82", "-F", "-R" ]
+CMD [ "sh", "-c", "${PHP_FPM_EXECUTABLE} -F -R" ]

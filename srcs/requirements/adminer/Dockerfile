@@ -1,7 +1,11 @@
 FROM alpine:3.19.1
 
+ARG PHP_VERSION="82"
 ARG ADMINER_VERSION="4.8.1"
-ARG PHP_PACKAGE="php82"
+ARG PHP_PACKAGE="php${PHP_VERSION}"
+
+ENV PHP_FPM_EXECUTABLE="php-fpm${PHP_VERSION}"
+
 RUN apk update && apk add ${PHP_PACKAGE} ${PHP_PACKAGE}-fpm wget
 
 # install php extensions
@@ -17,4 +21,4 @@ RUN wget https://github.com/vrana/adminer/releases/download/v${ADMINER_VERSION}/
 COPY ./files/php-fpm.d/www.conf /etc/${PHP_PACKAGE}/php-fpm.d/www.conf
 
 WORKDIR /var/www/adminer
-CMD [ "php-fpm82", "-F", "-R" ]
+CMD [ "sh", "-c", "${PHP_FPM_EXECUTABLE} -F -R" ]

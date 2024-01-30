@@ -19,9 +19,9 @@
 -- Current Database: `wp`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `wp` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `__MYSQL_DATABASE__` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
-USE `wp`;
+USE `__MYSQL_DATABASE__`;
 
 --
 -- Table structure for table `wp_commentmeta`
@@ -364,7 +364,7 @@ CREATE TABLE `wp_usermeta` (
 
 LOCK TABLES `wp_usermeta` WRITE;
 /*!40000 ALTER TABLE `wp_usermeta` DISABLE KEYS */;
-INSERT INTO `wp_usermeta` VALUES (1,1,'nickname','wp'),(2,1,'first_name',''),(3,1,'last_name',''),(4,1,'description',''),(5,1,'rich_editing','true'),(6,1,'syntax_highlighting','true'),(7,1,'comment_shortcuts','false'),(8,1,'admin_color','fresh'),(9,1,'use_ssl','0'),(10,1,'show_admin_bar_front','true'),(11,1,'locale',''),(12,1,'wp_capabilities','a:1:{s:13:\"administrator\";b:1;}'),(13,1,'wp_user_level','10'),(14,1,'dismissed_wp_pointers',''),(15,1,'show_welcome_panel','1');
+INSERT INTO `wp_usermeta` VALUES (1,1,'nickname','__WP_USER_NICKNAME__'),(2,1,'first_name',''),(3,1,'last_name',''),(4,1,'description',''),(5,1,'rich_editing','true'),(6,1,'syntax_highlighting','true'),(7,1,'comment_shortcuts','false'),(8,1,'admin_color','fresh'),(9,1,'use_ssl','0'),(10,1,'show_admin_bar_front','true'),(11,1,'locale',''),(12,1,'wp_capabilities','a:1:{s:13:\"administrator\";b:1;}'),(13,1,'wp_user_level','10'),(14,1,'dismissed_wp_pointers',''),(15,1,'show_welcome_panel','1');
 /*!40000 ALTER TABLE `wp_usermeta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -399,7 +399,7 @@ CREATE TABLE `wp_users` (
 
 LOCK TABLES `wp_users` WRITE;
 /*!40000 ALTER TABLE `wp_users` DISABLE KEYS */;
-INSERT INTO `wp_users` VALUES (1,'wp','$P$BSML2XXoQ6l0N0RcY1sVjSAnS1m3er0','wp','kfujita@student.42tokyo.jp','http://localhost','2024-01-28 03:48:03','',0,'wp');
+INSERT INTO `wp_users` VALUES (1,'__WP_USER_LOGIN__','__WP_USER_PASS__','__WP_USER_NICKNAME__','__WP_USER_EMAIL__','http://localhost','2024-01-28 03:48:03','',0,'__WP_USER_DISPLAY_NAME__');
 /*!40000 ALTER TABLE `wp_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

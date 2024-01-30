@@ -1,11 +1,39 @@
 FROM alpine:3.19.1
 
+ARG DB_USER=""
+ARG DB_GROUP=""
+
+ARG MYSQL_ROOT_PASSWORD=""
+ARG MYSQL_USER=""
+ARG MYSQL_PASSWORD=""
+ARG MYSQL_DATABASE=""
+
+ARG WP_USER_NICKNAME=""
+ARG WP_USER_LOGIN=""
+ARG WP_USER_PASS=''
+ARG WP_USER_EMAIL=""
+ARG WP_USER_DISPLAY_NAME=""
+
+ARG PLACEHOLDER_DB_USER="__DB_USER__"
+ARG PLACEHOLDER_MYSQL_ROOT_PASSWORD="__MYSQL_ROOT_PASSWORD__"
+ARG PLACEHOLDER_MYSQL_USER="__MYSQL_USER__"
+ARG PLACEHOLDER_MYSQL_PASSWORD="__MYSQL_PASSWORD__"
+ARG PLACEHOLDER_MYSQL_DATABASE="__MYSQL_DATABASE__"
+
+ARG PLACEHOLDER_WP_USER_NICKNAME="__WP_USER_NICKNAME__"
+ARG PLACEHOLDER_WP_USER_LOGIN="__WP_USER_LOGIN__"
+ARG PLACEHOLDER_WP_USER_PASS="__WP_USER_PASS__"
+ARG PLACEHOLDER_WP_USER_EMAIL="__WP_USER_EMAIL__"
+ARG PLACEHOLDER_WP_USER_DISPLAY_NAME="__WP_USER_DISPLAY_NAME__"
+
+ENV DB_USER=${DB_USER}
+
 EXPOSE 3306
 
-RUN addgroup mysql && \
-    adduser -D -s /sbin/nologin -h /var/lib/mysql -G mysql mysql && \
+RUN addgroup ${DB_GROUP} && \
+    adduser -D -s /sbin/nologin -h /var/lib/mysql -G ${DB_GROUP} ${DB_USER} && \
     mkdir -p /var/run/mysqld && \
-    chown -R mysql:mysql /var/run/mysqld
+    chown -R ${DB_USER}:${DB_GROUP} /var/run/mysqld
 
 RUN apk update && apk upgrade
 
@@ -18,4 +46,16 @@ COPY files/mariadb-server.cnf /etc/my.cnf.d/
 WORKDIR /var/lib/mysql
 COPY files/init_sql/ /tmp/init_sql
 COPY files/entrypoint.sh /entrypoint.sh
-CMD ["sh", "/entrypoint.sh", "mysql", "/var/lib/mysql"]
+RUN sed -i\
+    -e "s/${PLACEHOLDER_DB_USER}/${DB_USER}/g"\
+    -e "s/${PLACEHOLDER_MYSQL_ROOT_PASSWORD}/${MYSQL_ROOT_PASSWORD}/g"\
+    -e "s/${PLACEHOLDER_MYSQL_USER}/${MYSQL_USER}/g"\
+    -e "s/${PLACEHOLDER_MYSQL_PASSWORD}/${MYSQL_PASSWORD}/g"\
+    -e "s/${PLACEHOLDER_MYSQL_DATABASE}/${MYSQL_DATABASE}/g"\
+    -e "s/${PLACEHOLDER_WP_USER_NICKNAME}/${WP_USER_NICKNAME}/g"\
+    -e "s/${PLACEHOLDER_WP_USER_LOGIN}/${WP_USER_LOGIN}/g"\
+    -e "s/${PLACEHOLDER_WP_USER_PASS}/${WP_USER_PASS}/g"\
+    -e "s/${PLACEHOLDER_WP_USER_EMAIL}/${WP_USER_EMAIL}/g"\
+    -e "s/${PLACEHOLDER_WP_USER_DISPLAY_NAME}/${WP_USER_DISPLAY_NAME}/g"\
+    /tmp/init_sql/*.sql
+CMD ["sh", "-c", "/entrypoint.sh ${DB_USER} /var/lib/mysql"]

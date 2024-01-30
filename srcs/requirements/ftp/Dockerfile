@@ -1,13 +1,16 @@
 FROM alpine:3.19.1
 
+ARG FTP_USER=""
+ARG FTP_PASSWORD=""
+
 RUN apk update && apk add vsftpd
 
 COPY ./files/vsftpd.conf /etc/vsftpd/vsftpd.conf
 
 RUN mkdir -p /var/www/html
 
-RUN adduser -D -h /var/www/html/ -s /bin/false ftp_user
-RUN echo "ftp_user:0000" | chpasswd
+RUN adduser -D -h /var/www/html/ -s /bin/false ${FTP_USER}
+RUN echo "${FTP_USER}:${FTP_PASSWORD}" | chpasswd
 
 EXPOSE 21 21000-21010
 
