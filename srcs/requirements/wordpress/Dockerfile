@@ -22,9 +22,14 @@ RUN apk add\
   ${PHP_PACKAGE}-zip\
   libzip
 
+WORKDIR /root
+COPY ./files/download_cache/ /root/
+
 RUN mkdir -p /var/www/html
 VOLUME [ "/var/www/html" ]
-RUN wget https://wordpress.org/wordpress-${WP_VERSION}.tar.gz && \
+RUN if [ ! -f "/root/wordpress-${WP_VERSION}.tar.gz" ]; then \
+      wget "https://wordpress.org/wordpress-${WP_VERSION}.tar.gz";\
+    fi;\
     tar -xzvf wordpress-${WP_VERSION}.tar.gz -C /var/www/html --strip-components=1 && \
     rm -rf wordpress-${WP_VERSION}.tar.gz
 
