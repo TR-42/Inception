@@ -77,10 +77,6 @@ services:
       - adminer_data:/var/www/adminer
     depends_on:
       - mariadb
-    environment:
-      - ADMINER_DEFAULT_DB_HOST=mariadb
-      - ADMINER_DEFAULT_DB_DRIVER=mysql
-      - ADMINER_DEFAULT_DB_NAME=wp
 
   proxy:
     container_name: nginx
