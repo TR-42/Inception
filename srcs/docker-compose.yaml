@@ -99,7 +99,7 @@ services:
       - adminer
 
   redis:
-    container_name: redix
+    container_name: redis
     build:
       context: ./requirements/redis
       dockerfile: Dockerfile
