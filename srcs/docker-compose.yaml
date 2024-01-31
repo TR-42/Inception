@@ -83,10 +83,12 @@ services:
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
+      args:
+        - DOMAIN_NAME=${DOMAIN_NAME}
     volumes:
       - wp_data:/var/www/html:ro
       - adminer_data:/var/www/adminer:ro
-    #   - ./requirements/nginx/ssl:/etc/nginx/ssl
+      - ./requirements/nginx/files/ssl:/etc/nginx/ssl:ro
     ports:
       - "80:80"
       - "443:443"
