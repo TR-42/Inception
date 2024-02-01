@@ -63,7 +63,8 @@ services:
         - WP_USER_EMAIL=${WP_USER_EMAIL}
         - WP_USER_DISPLAY_NAME=${WP_USER_DISPLAY_NAME}
     networks:
-      - db_network
+      - wp_db
+      - adminer_db
     volumes:
       - mariadb_data:/var/lib/mysql
 
@@ -79,8 +80,8 @@ services:
         - PHP_VERSION=${PHP_VERSION}
         - ADMINER_VERSION=${ADMINER_VERSION}
     networks:
-      - db_network
-      - proxy_network
+      - proxy_adminer
+      - adminer_db
     volumes:
       - adminer_data:/var/www/adminer
     depends_on:
@@ -104,7 +105,8 @@ services:
       - "80:80"
       - "443:443"
     networks:
-      - proxy_network
+      - proxy_adminer
+      - proxy_wp
     depends_on:
       - wordpress
       - adminer
@@ -118,7 +120,7 @@ services:
       tags:
         - redis
     networks:
-      - redis_network
+      - wp_redis
 
   wordpress:
     container_name: wordpress
@@ -136,9 +138,9 @@ services:
         - MYSQL_PASSWORD=${MYSQL_PASSWORD}
         - MYSQL_DATABASE=${MYSQL_DATABASE}
     networks:
-      - db_network
-      - proxy_network
-      - redis_network
+      - proxy_wp
+      - wp_db
+      - wp_redis
     volumes:
       - wp_data:/var/www/html
     depends_on:
@@ -156,9 +158,11 @@ services:
 
 
 networks:
-  proxy_network:
-  db_network:
-  redis_network:
+  proxy_wp:
+  proxy_adminer:
+  wp_db:
+  adminer_db:
+  wp_redis:
 
 volumes:
   mariadb_data:
