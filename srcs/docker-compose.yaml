@@ -5,6 +5,8 @@ services:
     build:
       context: ./requirements/dns
       dockerfile: Dockerfile
+      tags:
+        - dns
       args:
         - DOMAIN_NAME=${DOMAIN_NAME}
     ports:
@@ -29,6 +31,8 @@ services:
     build:
       context: ./requirements/ftp
       dockerfile: Dockerfile
+      tags:
+        - ftp
       args:
         - FTP_USER=${FTP_USER}
         - FTP_PASSWORD=${FTP_PASSWORD}
@@ -44,6 +48,8 @@ services:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
+      tags:
+        - mariadb
       args:
         - DB_GROUP=${DB_GROUP}
         - DB_USER=${DB_USER}
@@ -67,6 +73,8 @@ services:
     build:
       context: ./requirements/adminer
       dockerfile: Dockerfile
+      tags:
+        - adminer
       args:
         - PHP_VERSION=${PHP_VERSION}
         - ADMINER_VERSION=${ADMINER_VERSION}
@@ -78,11 +86,14 @@ services:
     depends_on:
       - mariadb
 
-  proxy:
+  nginx:
     container_name: nginx
+    hostname: nginx
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
+      tags:
+        - nginx
       args:
         - DOMAIN_NAME=${DOMAIN_NAME}
     volumes:
@@ -100,18 +111,23 @@ services:
 
   redis:
     container_name: redis
+    hostname: redis
     build:
       context: ./requirements/redis
       dockerfile: Dockerfile
+      tags:
+        - redis
     networks:
       - redis_network
 
   wordpress:
-    container_name: wordpress_php_fpm
-    hostname: wordpress-php-fpm
+    container_name: wordpress
+    hostname: wordpress
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
+      tags:
+        - wordpress
       args:
         - PHP_VERSION=${PHP_VERSION}
         - WP_VERSION=${WP_VERSION}
