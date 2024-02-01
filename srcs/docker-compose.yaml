@@ -13,6 +13,7 @@ services:
       - "53:53/udp"
     cap_add:
       - NET_ADMIN
+    restart: unless-stopped
 
   # dotnet:
   #   TODO: 適切な名前に変更する
@@ -41,6 +42,7 @@ services:
       - "21000-21010:21000-21010"
     volumes:
       - wp_data:/var/www/html
+    restart: unless-stopped
 
   mariadb:
     container_name: mariadb
@@ -67,6 +69,7 @@ services:
       - adminer_db
     volumes:
       - mariadb_data:/var/lib/mysql
+    restart: unless-stopped
 
   adminer:
     container_name: adminer
@@ -86,6 +89,7 @@ services:
       - adminer_data:/var/www/adminer
     depends_on:
       - mariadb
+    restart: unless-stopped
 
   nginx:
     container_name: nginx
@@ -110,6 +114,7 @@ services:
     depends_on:
       - wordpress
       - adminer
+    restart: unless-stopped
 
   redis:
     container_name: redis
@@ -121,6 +126,7 @@ services:
         - redis
     networks:
       - wp_redis
+    restart: unless-stopped
 
   wordpress:
     container_name: wordpress
@@ -155,7 +161,7 @@ services:
       - WP_SECURE_AUTH_SALT=${WP_SECURE_AUTH_SALT}
       - WP_LOGGED_IN_SALT=${WP_LOGGED_IN_SALT}
       - WP_NONCE_SALT=${WP_NONCE_SALT}
-
+    restart: unless-stopped
 
 networks:
   proxy_wp:
