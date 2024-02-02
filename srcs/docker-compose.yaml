@@ -15,17 +15,6 @@ services:
       - NET_ADMIN
     restart: unless-stopped
 
-  # dotnet:
-  #   TODO: 適切な名前に変更する
-  #   container_name: mariadb
-  #   build:
-  #     context: ./requirements/dotnet
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "80:80"
-  #   volumes:
-  #     - dotnet_data:/app
-
   ftp:
     container_name: ftp
     hostname: ftp
@@ -116,6 +105,18 @@ services:
       - adminer
     restart: unless-stopped
 
+  react:
+    container_name: react
+    hostname: react
+    build:
+      context: ./requirements/react
+      dockerfile: Dockerfile
+      tags:
+        - react
+    networks:
+      - proxy_react
+    restart: unless-stopped
+
   redis:
     container_name: redis
     hostname: redis
@@ -166,6 +167,7 @@ services:
 networks:
   proxy_wp:
   proxy_adminer:
+  proxy_react:
   wp_db:
   adminer_db:
   wp_redis:
@@ -174,4 +176,3 @@ volumes:
   mariadb_data:
   adminer_data:
   wp_data:
-  dotnet_data:
