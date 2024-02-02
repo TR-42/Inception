@@ -100,9 +100,11 @@ services:
     networks:
       - proxy_adminer
       - proxy_wp
+      - proxy_react
     depends_on:
       - wordpress
       - adminer
+      - react
     restart: unless-stopped
 
   react:
