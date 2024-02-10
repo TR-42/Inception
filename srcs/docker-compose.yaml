@@ -3,7 +3,7 @@ services:
     container_name: dns
     hostname: dns
     build:
-      context: ./requirements/dns
+      context: ./requirements/bonus/dns
       dockerfile: Dockerfile
       tags:
         - dns
@@ -19,7 +19,7 @@ services:
     container_name: ftp
     hostname: ftp
     build:
-      context: ./requirements/ftp
+      context: ./requirements/bonus/ftp
       dockerfile: Dockerfile
       tags:
         - ftp
@@ -65,7 +65,7 @@ services:
     container_name: adminer
     hostname: adminer
     build:
-      context: ./requirements/adminer
+      context: ./requirements/bonus/adminer
       dockerfile: Dockerfile
       tags:
         - adminer
@@ -112,7 +112,7 @@ services:
     container_name: react
     hostname: react
     build:
-      context: ./requirements/react
+      context: ./requirements/bonus/react
       dockerfile: Dockerfile
       tags:
         - react
@@ -124,7 +124,7 @@ services:
     container_name: redis
     hostname: redis
     build:
-      context: ./requirements/redis
+      context: ./requirements/bonus/redis
       dockerfile: Dockerfile
       tags:
         - redis
