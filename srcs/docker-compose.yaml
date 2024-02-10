@@ -53,6 +53,7 @@ services:
         - WP_USER_PASS=${WP_USER_PASS}
         - WP_USER_EMAIL=${WP_USER_EMAIL}
         - WP_USER_DISPLAY_NAME=${WP_USER_DISPLAY_NAME}
+        - DOMAIN_NAME=${DOMAIN_NAME}
     networks:
       - wp_db
       - adminer_db
