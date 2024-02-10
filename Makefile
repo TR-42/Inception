@@ -2,6 +2,7 @@ COMPOSE_FILE=./srcs/docker-compose.yaml
 COMPOSE_CMD=docker compose -f $(COMPOSE_FILE)
 
 all: up
+bonus: up
 up:
 	${COMPOSE_CMD} up -d
 
