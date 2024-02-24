@@ -11,6 +11,11 @@ upb:
 down:
 	${COMPOSE_CMD} down
 
+start:
+	${COMPOSE_CMD} start
+stop:
+	${COMPOSE_CMD} stop
+
 ps:
 	${COMPOSE_CMD} ps
 
