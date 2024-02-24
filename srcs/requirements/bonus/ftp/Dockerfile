@@ -1,4 +1,4 @@
-FROM alpine:3.19.1
+FROM alpine:3.18.5
 
 ARG FTP_USER=""
 ARG FTP_PASSWORD=""

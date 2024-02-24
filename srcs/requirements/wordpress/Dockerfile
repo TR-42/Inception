@@ -1,4 +1,4 @@
-FROM alpine:3.19.1
+FROM alpine:3.18.5
 
 ARG PHP_VERSION="82"
 ARG WP_VERSION="6.4.2"

@@ -1,4 +1,4 @@
-FROM alpine:3.19.1 AS builder
+FROM alpine:3.18.5 AS builder
 
 RUN apk update && apk add nodejs npm
 
@@ -13,7 +13,7 @@ RUN yarn install --frozen-lockfile
 COPY files/app ./
 RUN yarn build
 
-FROM alpine:3.19.1 AS runner
+FROM alpine:3.18.5 AS runner
 
 RUN apk update && apk add apache2
 

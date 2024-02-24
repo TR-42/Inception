@@ -1,4 +1,4 @@
-FROM alpine:3.19.1
+FROM alpine:3.18.5
 
 ARG DB_USER=""
 ARG DB_GROUP=""
