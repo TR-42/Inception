@@ -1,6 +1,6 @@
 FROM alpine:3.18.5
 
-RUN apk update && apk add redis
+RUN apk update && apk add redis~=7.0.15
 
 COPY ./files/redis.conf /etc/redis.conf
 
