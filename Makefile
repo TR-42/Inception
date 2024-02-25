@@ -1,4 +1,4 @@
-COMPOSE_FILE=./srcs/docker-compose.yaml
+COMPOSE_FILE=./srcs/docker-compose.yml
 COMPOSE_CMD=docker compose -f $(COMPOSE_FILE)
 
 all: up
