@@ -3,7 +3,8 @@ FROM alpine:3.18.5
 ARG FTP_USER=""
 ARG FTP_PASSWORD=""
 
-RUN apk update && apk add vsftpd
+RUN apk update && apk add --no-cache tini vsftpd
+ENTRYPOINT ["/sbin/tini", "--"]
 
 COPY ./files/vsftpd.conf /etc/vsftpd/vsftpd.conf
 
