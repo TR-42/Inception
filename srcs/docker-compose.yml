@@ -177,5 +177,20 @@ networks:
 
 volumes:
   mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_MOUNT_POINT}/${VOLUME_MARIADB_DIR}
   adminer_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_MOUNT_POINT}/${VOLUME_ADMINER_DIR}
   wp_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_MOUNT_POINT}/${VOLUME_WP_DIR}

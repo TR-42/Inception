@@ -21,6 +21,7 @@ ps:
 
 clean:
 	${COMPOSE_CMD} down -v
+	@sh ./rm_mntdir.sh
 
 fclean:
 	${COMPOSE_CMD} down -v --rmi local
@@ -30,7 +31,8 @@ build:
 
 setup:
 	@if [ ! -f "./srcs/.env" ]; then echo "ERROR: Place '.env' before build!" >&2; exit 1; fi
-	
+
+	@sh ./setup_mntdir.sh
 	@sh ./srcs/requirements/nginx/files/ssl/gen-key.sh
 	@sh ./srcs/requirements/wordpress/files/download_cache/download.sh ./srcs/.env
 
