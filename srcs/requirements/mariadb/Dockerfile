@@ -33,6 +33,10 @@ ENV DB_USER=${DB_USER}
 
 EXPOSE 3306
 
+# Add Tini
+RUN apk add --no-cache tini
+ENTRYPOINT ["/sbin/tini", "--"]
+
 RUN addgroup ${DB_GROUP} && \
     adduser -D -s /sbin/nologin -h /var/lib/mysql -G ${DB_GROUP} ${DB_USER} && \
     mkdir -p /var/run/mysqld && \
@@ -49,6 +53,7 @@ COPY files/mariadb-server.cnf /etc/my.cnf.d/
 WORKDIR /var/lib/mysql
 COPY files/init_sql/ /tmp/init_sql
 COPY files/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 RUN sed -i\
     -e "s/${PLACEHOLDER_DB_USER}/${DB_USER}/g"\
     -e "s/${PLACEHOLDER_MYSQL_ROOT_PASSWORD}/${MYSQL_ROOT_PASSWORD}/g"\
@@ -62,4 +67,9 @@ RUN sed -i\
     -e "s/${PLACEHOLDER_WP_USER_DISPLAY_NAME}/${WP_USER_DISPLAY_NAME}/g"\
     -e "s/${DOMAIN_NAME_PLACEHOLDER}/${DOMAIN_NAME}/g"\
     /tmp/init_sql/*.sql
-CMD ["sh", "-c", "/entrypoint.sh ${DB_USER} /var/lib/mysql"]
+
+RUN sed -i\
+    -e "s/${PLACEHOLDER_DB_USER}/${DB_USER}/g"\
+    /entrypoint.sh
+
+CMD [ "/entrypoint.sh" ]
