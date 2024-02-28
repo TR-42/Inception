@@ -9,14 +9,13 @@ ARG MYSQL_PASSWORD=""
 ARG MYSQL_DATABASE=""
 
 ARG PHP_PACKAGE="php${PHP_VERSION}"
-
-ARG PLACEHOLDER_MYSQL_USER="__MYSQL_USER__"
-ARG PLACEHOLDER_MYSQL_PASSWORD="__MYSQL_PASSWORD__"
-ARG PLACEHOLDER_MYSQL_DATABASE="__MYSQL_DATABASE__"
+ENV MYSQL_USER=${MYSQL_USER}
+ENV MYSQL_PASSWORD=${MYSQL_PASSWORD}
+ENV MYSQL_DATABASE=${MYSQL_DATABASE}
 
 ENV PHP_FPM_EXECUTABLE="php-fpm${PHP_VERSION}"
 
-RUN apk update && apk add --no-cache ${PHP_PACKAGE} ${PHP_PACKAGE}-fpm wget
+RUN apk update && apk add --no-cache ${PHP_PACKAGE} ${PHP_PACKAGE}-fpm wget gettext
 
 # install php extensions
 RUN apk add\
@@ -61,12 +60,8 @@ RUN if [ ! -f "/root/redis-cache.${REDIS_CACHE_PLUGIN_VERSION}.zip" ]; then \
 COPY ./files/php-fpm.d/www.conf /etc/${PHP_PACKAGE}/php-fpm.d/www.conf
 
 WORKDIR /var/www/html
-COPY files/wp-config.php ./wp-config.php
-RUN sed -i\
-    -e "s/${PLACEHOLDER_MYSQL_USER}/${MYSQL_USER}/g"\
-    -e "s/${PLACEHOLDER_MYSQL_PASSWORD}/${MYSQL_PASSWORD}/g"\
-    -e "s/${PLACEHOLDER_MYSQL_DATABASE}/${MYSQL_DATABASE}/g"\
-  ./wp-config.php
+COPY files/wp-config.php /tmp/wp-config.php
+RUN envsubst < /tmp/wp-config.php > ./wp-config.php
 
 RUN chown -R nobody:nogroup /var/www/html
 

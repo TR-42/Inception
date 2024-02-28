@@ -20,13 +20,13 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', '__MYSQL_DATABASE__' );
+define( 'DB_NAME', '${MYSQL_DATABASE}' );
 
 /** Database username */
-define( 'DB_USER', '__MYSQL_USER__' );
+define( 'DB_USER', '${MYSQL_USER}' );
 
 /** Database password */
-define( 'DB_PASSWORD', '__MYSQL_PASSWORD__' );
+define( 'DB_PASSWORD', '${MYSQL_PASSWORD}' );
 
 /** Database hostname */
 define( 'DB_HOST', 'mariadb' );
@@ -50,14 +50,14 @@ define( 'WP_REDIS_HOST', 'redis' );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         $_ENV['WP_AUTH_KEY'] );
-define( 'SECURE_AUTH_KEY',  $_ENV['WP_SECURE_AUTH_KEY'] );
-define( 'LOGGED_IN_KEY',    $_ENV['WP_LOGGED_IN_KEY'] );
-define( 'NONCE_KEY',        $_ENV['WP_NONCE_KEY'] );
-define( 'AUTH_SALT',        $_ENV['WP_AUTH_SALT'] );
-define( 'SECURE_AUTH_SALT', $_ENV['WP_SECURE_AUTH_SALT'] );
-define( 'LOGGED_IN_SALT',   $_ENV['WP_LOGGED_IN_SALT'] );
-define( 'NONCE_SALT',       $_ENV['WP_NONCE_SALT'] );
+define( 'AUTH_KEY',         '${WP_AUTH_KEY}' );
+define( 'SECURE_AUTH_KEY',  '${WP_SECURE_AUTH_KEY}' );
+define( 'LOGGED_IN_KEY',    '${WP_LOGGED_IN_KEY}' );
+define( 'NONCE_KEY',        '${WP_NONCE_KEY}' );
+define( 'AUTH_SALT',        '${WP_AUTH_SALT}' );
+define( 'SECURE_AUTH_SALT', '${WP_SECURE_AUTH_SALT}' );
+define( 'LOGGED_IN_SALT',   '${WP_LOGGED_IN_SALT}' );
+define( 'NONCE_SALT',       '${WP_NONCE_SALT}' );
 
 /**#@-*/
 

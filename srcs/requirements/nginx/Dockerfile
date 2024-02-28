@@ -1,16 +1,16 @@
 FROM alpine:3.18.5
 
 ARG DOMAIN_NAME=""
-ARG PLACEHOLDER_DOMAIN_NAME="__DOMAIN_NAME__"
+ENV DOMAIN_NAME=${DOMAIN_NAME}
 
 EXPOSE 443
 
 RUN apk update && apk upgrade
 
-RUN apk add --no-cache nginx openssl
+RUN apk add --no-cache nginx openssl gettext
 
-COPY files/nginx.conf /etc/nginx/nginx.conf
+COPY files/nginx.conf nginx.conf
 
-RUN sed -i "s/$PLACEHOLDER_DOMAIN_NAME/$DOMAIN_NAME/g" /etc/nginx/nginx.conf
+RUN envsubst < nginx.conf > /etc/nginx/nginx.conf
 
 CMD ["nginx"]
