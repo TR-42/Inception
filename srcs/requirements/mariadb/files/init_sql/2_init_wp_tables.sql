@@ -1098,6 +1098,96 @@ INSERT INTO `wp_usermeta` VALUES
   1,
   'show_welcome_panel',
   '1'
+).
+(
+  16,
+  2,
+  'nickname',
+  '__WP_ADMIN_NICKNAME__'
+),
+(
+  17,
+  2,
+  'first_name',
+  ''
+),
+(
+  18,
+  2,
+  'last_name',
+  ''
+),
+(
+  19,
+  2,
+  'description',
+  ''
+),
+(
+  20,
+  2,
+  'rich_editing',
+  'true'
+),
+(
+  21,
+  2,
+  'syntax_highlighting',
+  'true'
+),
+(
+  22,
+  2,
+  'comment_shortcuts',
+  'false'
+),
+(
+  23,
+  2,
+  'admin_color',
+  'fresh'
+),
+(
+  24,
+  2,
+  'use_ssl',
+  '0'
+),
+(
+  25,
+  2,
+  'show_admin_bar_front',
+  'true'
+),
+(
+  26,
+  2,
+  'locale',
+  ''
+),
+(
+  27,
+  2,
+  'wp_capabilities',
+  'a:1:{s:13:\"administrator\";b:1;}'
+),
+(
+  28,
+  2,
+  'wp_user_level',
+  '10'
+),
+(
+  29,
+  2,
+  'dismissed_wp_pointers',
+  ''
+),
+(
+  30,
+  2,
+  'show_welcome_panel',
+  '1'
 );
 /*!40000 ALTER TABLE `wp_usermeta` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1145,6 +1235,18 @@ INSERT INTO `wp_users` VALUES
   '',
   0,
   '__WP_USER_DISPLAY_NAME__'
+),
+(
+  2,
+  '__WP_ADMIN_LOGIN__',
+  '__WP_ADMIN_PASS__',
+  '__WP_ADMIN_NICKNAME__',
+  '__WP_ADMIN_EMAIL__',
+  'https://DOMAIN_NAME.42.fr',
+  '2024-01-28 03:48:03',
+  '',
+  0,
+  '__WP_ADMIN_DISPLAY_NAME__'
 );
 /*!40000 ALTER TABLE `wp_users` ENABLE KEYS */;
 UNLOCK TABLES;

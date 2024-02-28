@@ -1,1 +1,1 @@
-DELETE FROM mysql.user WHERE User='__DB_USER__';
+-- DELETE FROM mysql.user WHERE User='__DB_USER__';

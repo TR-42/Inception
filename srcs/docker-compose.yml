@@ -53,6 +53,11 @@ services:
         - WP_USER_PASS=${WP_USER_PASS}
         - WP_USER_EMAIL=${WP_USER_EMAIL}
         - WP_USER_DISPLAY_NAME=${WP_USER_DISPLAY_NAME}
+        - WP_ADMIN_NICKNAME=${WP_ADMIN_NICKNAME}
+        - WP_ADMIN_LOGIN=${WP_ADMIN_LOGIN}
+        - WP_ADMIN_PASS=${WP_ADMIN_PASS}
+        - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
+        - WP_ADMIN_DISPLAY_NAME=${WP_ADMIN_DISPLAY_NAME}
         - DOMAIN_NAME=${DOMAIN_NAME}
     networks:
       - wp_db
@@ -147,6 +152,14 @@ services:
         - MYSQL_USER=${MYSQL_USER}
         - MYSQL_PASSWORD=${MYSQL_PASSWORD}
         - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - WP_AUTH_KEY=${WP_AUTH_KEY}
+        - WP_SECURE_AUTH_KEY=${WP_SECURE_AUTH_KEY}
+        - WP_LOGGED_IN_KEY=${WP_LOGGED_IN_KEY}
+        - WP_NONCE_KEY=${WP_NONCE_KEY}
+        - WP_AUTH_SALT=${WP_AUTH_SALT}
+        - WP_SECURE_AUTH_SALT=${WP_SECURE_AUTH_SALT}
+        - WP_LOGGED_IN_SALT=${WP_LOGGED_IN_SALT}
+        - WP_NONCE_SALT=${WP_NONCE_SALT}
     networks:
       - proxy_wp
       - wp_db
@@ -156,15 +169,6 @@ services:
     depends_on:
       - mariadb
       - redis
-    environment:
-      - WP_AUTH_KEY=${WP_AUTH_KEY}
-      - WP_SECURE_AUTH_KEY=${WP_SECURE_AUTH_KEY}
-      - WP_LOGGED_IN_KEY=${WP_LOGGED_IN_KEY}
-      - WP_NONCE_KEY=${WP_NONCE_KEY}
-      - WP_AUTH_SALT=${WP_AUTH_SALT}
-      - WP_SECURE_AUTH_SALT=${WP_SECURE_AUTH_SALT}
-      - WP_LOGGED_IN_SALT=${WP_LOGGED_IN_SALT}
-      - WP_NONCE_SALT=${WP_NONCE_SALT}
     restart: unless-stopped
 
 networks:
