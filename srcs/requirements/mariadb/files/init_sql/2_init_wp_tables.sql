@@ -184,7 +184,7 @@ INSERT INTO `wp_options` VALUES
 (
   6,
   'admin_email',
-  'kfujita@student.42tokyo.jp',
+  '__WP_USER_EMAIL__',
   'yes'
 ),
 (
