@@ -1,6 +1,6 @@
 FROM alpine:3.18.5 AS builder
 
-RUN apk update && apk add nodejs npm
+RUN apk update && apk add --no-cache nodejs npm
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ RUN yarn build
 
 FROM alpine:3.18.5 AS runner
 
-RUN apk update && apk add apache2
+RUN apk update && apk add --no-cache apache2
 
 RUN mkdir -p /var/www/localhost/htdocs/react
 COPY --from=builder /app/dist /var/www/localhost/htdocs/react

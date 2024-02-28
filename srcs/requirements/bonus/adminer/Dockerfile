@@ -6,10 +6,11 @@ ARG PHP_PACKAGE="php${PHP_VERSION}"
 
 ENV PHP_FPM_EXECUTABLE="php-fpm${PHP_VERSION}"
 
-RUN apk update && apk add ${PHP_PACKAGE} ${PHP_PACKAGE}-fpm wget
+RUN apk update && apk add --no-cache ${PHP_PACKAGE} ${PHP_PACKAGE}-fpm wget
 
 # install php extensions
 RUN apk add\
+  --no-cache\
   ${PHP_PACKAGE}-session\
   ${PHP_PACKAGE}-mysqli
 

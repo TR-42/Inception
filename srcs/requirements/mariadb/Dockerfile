@@ -44,7 +44,7 @@ RUN addgroup ${DB_GROUP} && \
 
 RUN apk update && apk upgrade
 
-RUN apk add mariadb mariadb-client
+RUN apk add --no-cache mariadb mariadb-client
 
 VOLUME ["/var/lib/mysql"]
 

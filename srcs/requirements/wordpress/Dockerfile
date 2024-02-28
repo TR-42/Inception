@@ -16,10 +16,11 @@ ARG PLACEHOLDER_MYSQL_DATABASE="__MYSQL_DATABASE__"
 
 ENV PHP_FPM_EXECUTABLE="php-fpm${PHP_VERSION}"
 
-RUN apk update && apk add ${PHP_PACKAGE} ${PHP_PACKAGE}-fpm wget
+RUN apk update && apk add --no-cache ${PHP_PACKAGE} ${PHP_PACKAGE}-fpm wget
 
 # install php extensions
 RUN apk add\
+  --no-cache\
   ${PHP_PACKAGE}-json\
   ${PHP_PACKAGE}-mysqli\
   ${PHP_PACKAGE}-curl\

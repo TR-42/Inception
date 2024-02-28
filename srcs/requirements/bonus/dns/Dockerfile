@@ -3,7 +3,7 @@ FROM alpine:3.18.5
 ARG DOMAIN_NAME="xxx.42.fr"
 ARG DOMAIN_NAME_PLACEHOLDER="DOMAIN_NAME.42.fr"
 
-RUN apk update && apk add bind
+RUN apk update && apk --no-cache add bind
 
 EXPOSE 53/udp
 
