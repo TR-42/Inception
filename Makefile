@@ -4,8 +4,10 @@ COMPOSE_CMD=docker compose -f $(COMPOSE_FILE)
 all: up
 bonus: up
 up:
+	@sh ./setup_mntdir.sh
 	${COMPOSE_CMD} up -d
 upb:
+	@sh ./setup_mntdir.sh
 	${COMPOSE_CMD} up -d --build
 
 down:
@@ -18,6 +20,11 @@ stop:
 
 ps:
 	${COMPOSE_CMD} ps
+
+logs:
+	${COMPOSE_CMD} logs $(s)
+sh:
+	${COMPOSE_CMD} exec -it $(s) sh
 
 clean:
 	${COMPOSE_CMD} down -v
