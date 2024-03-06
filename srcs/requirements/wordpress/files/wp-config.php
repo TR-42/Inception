@@ -29,7 +29,7 @@ define( 'DB_USER', '${MYSQL_USER}' );
 define( 'DB_PASSWORD', '${MYSQL_PASSWORD}' );
 
 /** Database hostname */
-define( 'DB_HOST', 'mariadb' );
+define( 'DB_HOST', '${WP_DB_IP_DB}' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8mb4' );
@@ -37,7 +37,7 @@ define( 'DB_CHARSET', 'utf8mb4' );
 /** The database collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
 
-define( 'WP_REDIS_HOST', 'redis' );
+define( 'WP_REDIS_HOST', '${WP_REDIS_IP_REDIS}' );
 
 /**#@+
  * Authentication unique keys and salts.
