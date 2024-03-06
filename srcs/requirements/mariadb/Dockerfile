@@ -54,9 +54,10 @@ RUN addgroup ${DB_GROUP} && \
     mkdir -p /var/run/mysqld && \
     chown -R ${DB_USER}:${DB_GROUP} /var/run/mysqld
 
-RUN apk update && apk upgrade
-
 RUN apk add --no-cache mariadb mariadb-client
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+  CMD mysqladmin ping -h localhost
 
 VOLUME ["/var/lib/mysql"]
 

@@ -11,6 +11,7 @@ RUN apk add --no-cache nginx openssl gettext
 
 COPY files/nginx.conf nginx.conf
 
-RUN envsubst < nginx.conf > /etc/nginx/nginx.conf
+RUN envsubst < nginx.conf > /etc/nginx/nginx.conf \
+  '$DOMAIN_NAME'
 
 CMD ["nginx"]

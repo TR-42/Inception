@@ -1098,7 +1098,7 @@ INSERT INTO `wp_usermeta` VALUES
   1,
   'show_welcome_panel',
   '1'
-).
+),
 (
   16,
   2,

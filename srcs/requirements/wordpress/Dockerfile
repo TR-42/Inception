@@ -55,6 +55,13 @@ RUN apk add\
   ${PHP_PACKAGE}-redis\
   ${PHP_PACKAGE}-ctype
 
+# ref: https://github.com/renatomefi/php-fpm-healthcheck
+RUN wget -O /usr/local/bin/php-fpm-healthcheck \
+  https://raw.githubusercontent.com/renatomefi/php-fpm-healthcheck/master/php-fpm-healthcheck \
+  && chmod +x /usr/local/bin/php-fpm-healthcheck
+HEALTHCHECK --interval=5s --timeout=1s \
+    CMD php-fpm-healthcheck
+
 WORKDIR /root
 COPY ./files/download_cache/ /root/
 
@@ -78,7 +85,8 @@ COPY ./files/php-fpm.d/www.conf /etc/${PHP_PACKAGE}/php-fpm.d/www.conf
 
 WORKDIR /var/www/html
 COPY files/wp-config.php /tmp/wp-config.php
-RUN envsubst < /tmp/wp-config.php > ./wp-config.php
+RUN envsubst < /tmp/wp-config.php > ./wp-config.php \
+  '$MYSQL_USER,$MYSQL_PASSWORD,$MYSQL_DATABASE,$WP_AUTH_KEY,$WP_SECURE_AUTH_KEY,$WP_LOGGED_IN_KEY,$WP_NONCE_KEY,$WP_AUTH_SALT,$WP_SECURE_AUTH_SALT,$WP_LOGGED_IN_SALT,$WP_NONCE_SALT'
 
 RUN chown -R nobody:nogroup /var/www/html
 

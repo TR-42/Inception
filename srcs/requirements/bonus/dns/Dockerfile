@@ -12,7 +12,8 @@ COPY ./files/named.conf named.conf
 
 RUN mkdir -p /var/named/zones
 COPY ./files/zones /var/named/zones
-RUN envsubst < named.conf > /etc/named/named.conf && \
+RUN mkdir -p /etc/named && \
+    envsubst < named.conf > /etc/named/named.conf && \
     mv /var/named/zones/${DOMAIN_NAME_PLACEHOLDER}.zone /var/named/zones/${DOMAIN_NAME}.zone
 
 RUN chown -R named:named /var/named && \
