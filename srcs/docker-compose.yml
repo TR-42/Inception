@@ -60,10 +60,8 @@ services:
         - WP_ADMIN_DISPLAY_NAME=${WP_ADMIN_DISPLAY_NAME}
         - DOMAIN_NAME=${DOMAIN_NAME}
     networks:
-      wp_db:
-        ipv4_address: ${WP_DB_IP_DB}
-      adminer_db:
-        ipv4_address: ${ADMINER_DB_IP_DB}
+      - wp_db
+      - adminer_db
     volumes:
       - mariadb_data:/var/lib/mysql
     restart: unless-stopped
@@ -80,10 +78,8 @@ services:
         - PHP_VERSION=${PHP_VERSION}
         - ADMINER_VERSION=${ADMINER_VERSION}
     networks:
-      proxy_adminer:
-        ipv4_address: ${PROXY_ADMINER_IP_ADMINER}
-      adminer_db:
-        ipv4_address: ${ADMINER_DB_IP_ADMINER}
+      - proxy_adminer
+      - adminer_db
     volumes:
       - adminer_data:/var/www/adminer
     depends_on:
@@ -100,9 +96,6 @@ services:
         - nginx
       args:
         - DOMAIN_NAME=${DOMAIN_NAME}
-        - PROXY_ADMINER_IP_ADMINER=${PROXY_ADMINER_IP_ADMINER}
-        - PROXY_WP_IP_WP=${PROXY_WP_IP_WP}
-        - PROXY_REACT_IP_REACT=${PROXY_REACT_IP_REACT}
     volumes:
       - wp_data:/var/www/html:ro
       - adminer_data:/var/www/adminer:ro
@@ -111,12 +104,9 @@ services:
       - "80:80"
       - "443:443"
     networks:
-      proxy_adminer:
-        ipv4_address: ${PROXY_ADMINER_IP_PROXY}
-      proxy_wp:
-        ipv4_address: ${PROXY_WP_IP_PROXY}
-      proxy_react:
-        ipv4_address: ${PROXY_REACT_IP_PROXY}
+      - proxy_adminer
+      - proxy_wp
+      - proxy_react
     depends_on:
       - wordpress
       - adminer
@@ -132,8 +122,7 @@ services:
       tags:
         - react
     networks:
-      proxy_react:
-        ipv4_address: ${PROXY_REACT_IP_REACT}
+      - proxy_react
     restart: unless-stopped
 
   redis:
@@ -145,8 +134,7 @@ services:
       tags:
         - redis
     networks:
-      wp_redis:
-        ipv4_address: ${WP_REDIS_IP_REDIS}
+      - wp_redis
     restart: unless-stopped
 
   wordpress:
@@ -172,15 +160,10 @@ services:
         - WP_SECURE_AUTH_SALT=${WP_SECURE_AUTH_SALT}
         - WP_LOGGED_IN_SALT=${WP_LOGGED_IN_SALT}
         - WP_NONCE_SALT=${WP_NONCE_SALT}
-        - WP_DB_IP_DB=${WP_DB_IP_DB}
-        - WP_REDIS_IP_REDIS=${WP_REDIS_IP_REDIS}
     networks:
-      proxy_wp:
-        ipv4_address: ${PROXY_WP_IP_WP}
-      wp_db:
-        ipv4_address: ${WP_DB_IP_WP}
-      wp_redis:
-        ipv4_address: ${WP_REDIS_IP_WP}
+      - proxy_wp
+      - wp_db
+      - wp_redis
     volumes:
       - wp_data:/var/www/html
     depends_on:
@@ -190,41 +173,11 @@ services:
 
 networks:
   proxy_wp:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: ${PROXY_WP_SUBNET}
   proxy_adminer:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: ${PROXY_ADMINER_SUBNET}
   proxy_react:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: ${PROXY_REACT_SUBNET}
   wp_db:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: ${WP_DB_SUBNET}
   adminer_db:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: ${ADMINER_DB_SUBNET}
   wp_redis:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: ${WP_REDIS_SUBNET}
 
 volumes:
   mariadb_data:
