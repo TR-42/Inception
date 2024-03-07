@@ -11,7 +11,7 @@ if [ -z "${VOLUME_MOUNT_POINT}" ]; then
   exit 1
 fi
 
-rm -rf\
+sudo rm -rf\
   ${VOLUME_MOUNT_POINT}/${VOLUME_ADMINER_DIR}\
   ${VOLUME_MOUNT_POINT}/${VOLUME_WP_DIR}\
   ${VOLUME_MOUNT_POINT}/${VOLUME_MARIADB_DIR}\
