@@ -24,7 +24,6 @@ services:
       tags:
         - ftp
       args:
-        - FTP_USER=${FTP_USER}
         - FTP_PASSWORD=${FTP_PASSWORD}
     ports:
       - "21:21"
